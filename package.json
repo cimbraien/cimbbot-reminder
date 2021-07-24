@@ -1,0 +1,23 @@
+{
+  "name": "cimbbot",
+  "version": "1.0.0",
+  "description": "Discord bot for development",
+  "main": "bot.js",
+  "scripts": {
+    "start": "nodemon bot.js"
+  },
+  "keywords": [
+    "bot",
+    "discord"
+  ],
+  "author": "cimbraien",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^12.5.3",
+    "dotenv": "^10.0.0",
+    "node-cron": "^3.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.12"
+  }
+}
