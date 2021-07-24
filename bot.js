@@ -1,11 +1,22 @@
-require("dotenv").config();
+//require("dotenv").config();
+const fs = require("fs");
+const util = require("util");
+
 const cron = require("node-cron");
 const Discord = require("discord.js");
 const client = new Discord.Client();
 const channelKelasId = "868443559316045864";
 let channelKelas;
-//const runningSurvey = [];
 const githubLink = "https://github.com/cimbraien/cimbbot-reminder";
+
+const log_file_err = fs.createWriteStream(__dirname + "/error.log", {
+	flags: "a",
+});
+
+process.on("uncaughtException", function (err) {
+	console.log(err);
+	log_file_err.write(util.format(err) + "\n");
+});
 
 const createDailyEmbed = () => {
 	return new Discord.MessageEmbed()
@@ -105,7 +116,6 @@ client.on("ready", async () => {
 		"20 12 * * 1-5",
 		async () => {
 			const survey = await channelKelas.send(createDailyEmbed());
-			//runningSurvey.push(survey);
 		},
 		{
 			timezone: "Asia/Jakarta",
@@ -115,7 +125,6 @@ client.on("ready", async () => {
 		"30 20 * * 1-5",
 		async () => {
 			const survey = await channelKelas.send(createOHEmbed());
-			//runningSurvey.push(survey);
 		},
 		{
 			timezone: "Asia/Jakarta",
@@ -125,7 +134,6 @@ client.on("ready", async () => {
 		"10 17 * * 1,3,5",
 		async () => {
 			const survey = await channelKelas.send(createActivityEmbed());
-			//runningSurvey.push(survey);
 		},
 		{
 			timezone: "Asia/Jakarta",
@@ -134,13 +142,12 @@ client.on("ready", async () => {
 });
 
 client.on("message", async (msg) => {
-	const commands = ["getChannelAndGuildID", "setChannel", "getRunningSurveys"];
+	const commands = ["getChannelAndGuildID", "setChannel"];
 	if (commands.includes(msg.content) && msg.author.id != "145499841806598144") {
 		msg.channel.send("Cuma cimbraien yang bisa oi");
 		return;
 	}
 	if (msg.content == "getChannelAndGuildID") {
-		console.log(msg.channel);
 		msg.channel.send(
 			`Guild ID :	${msg.guild.id}\nChannel ID :	${msg.channel.id}\nChannel Parent ID: ${msg.guild.parentID}`
 		);
@@ -149,10 +156,6 @@ client.on("message", async (msg) => {
 		channelKelas = msg.channel;
 		msg.channel.send("Channel set successfully");
 	}
-	/* if (msg.content == "getRunningSurveys") {
-		console.log(runningSurvey);
-		msg.channel.send(runningSurvey[0]);
-	} */
 });
 
 client.login(process.env.DISCORD_API_TOKEN);
