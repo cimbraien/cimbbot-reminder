@@ -5,6 +5,7 @@ const client = new Discord.Client();
 const channelKelasId = "868443559316045864";
 let channelKelas;
 //const runningSurvey = [];
+const githubLink = "https://github.com/cimbraien/cimbbot-reminder";
 
 const createDailyEmbed = () => {
 	return new Discord.MessageEmbed()
@@ -13,7 +14,7 @@ const createDailyEmbed = () => {
 		.setAuthor(
 			"cimbBot-reminder",
 			"https://i.imgur.com/LUeW3ZG.jpg",
-			"https://github.com/cimbraien"
+			githubLink
 		)
 		.setThumbnail("https://i.imgur.com/LUeW3ZG.jpg")
 		.addFields(
@@ -43,7 +44,7 @@ const createOHEmbed = () => {
 		.setAuthor(
 			"cimbBot-reminder",
 			"https://i.imgur.com/LUeW3ZG.jpg",
-			"https://github.com/cimbraien"
+			githubLink
 		)
 		.setThumbnail("https://i.imgur.com/LUeW3ZG.jpg")
 		.addFields(
@@ -73,7 +74,7 @@ const createActivityEmbed = () => {
 		.setAuthor(
 			"cimbBot-reminder",
 			"https://i.imgur.com/LUeW3ZG.jpg",
-			"https://github.com/cimbraien"
+			githubLink
 		)
 		.setThumbnail("https://i.imgur.com/LUeW3ZG.jpg")
 		.addFields(
@@ -99,8 +100,6 @@ const createActivityEmbed = () => {
 client.on("ready", async () => {
 	console.log(`Logged in as ${client.user.tag}!`);
 	channelKelas = await client.channels.fetch(channelKelasId);
-	const survey = await channelKelas.send(createDailyEmbed());
-	runningSurvey.push(survey);
 
 	cron.schedule(
 		"20 12 * * 1-5",
