@@ -1,7 +1,7 @@
 {
 	"name": "cimbbot",
-	"version": "1.0.1",
-	"description": "Discord bot for development",
+	"version": "1.1.0",
+	"description": "Discord bot used to create reminders on filling surveys at Glints Academy",
 	"main": "bot.js",
 	"scripts": {
 		"start": "nodemon bot.js"
