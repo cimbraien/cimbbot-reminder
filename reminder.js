@@ -1,6 +1,8 @@
 const { dailyEmbed, ohEmbed, activityEmbed } = require("./messages");
 const cron = require("node-cron");
 
+const runningSurveys = [];
+
 // * Survey types enum
 exports.SurveyType = {
 	DAILY: {
@@ -31,15 +33,19 @@ exports.createReminder = (time, surveyType, channel, activityName = null) => {
 
 	cron.schedule(
 		`${minute} ${hour} * * ${weekday}`,
-		() => {
+		async () => {
+			let msg;
 			if (activityName) {
-				channel.send(surveyType.embed(activityName));
+				msg = await channel.send(surveyType.embed(activityName));
 			} else {
-				channel.send(surveyType.embed());
+				msg = await channel.send(surveyType.embed());
 			}
+			msg.react("✅");
 		},
 		{
 			timezone,
 		}
 	);
 };
+
+exports.checkReactions = () => {};

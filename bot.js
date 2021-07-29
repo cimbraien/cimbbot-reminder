@@ -2,7 +2,11 @@ require("dotenv").config();
 
 const Discord = require("discord.js");
 const { dailyEmbed, ohEmbed, activityEmbed } = require("./messages");
-const { getChannelID, createSurveys } = require("./commands/channels");
+const {
+	getChannelID,
+	createSurveys,
+	createTestSurvey,
+} = require("./commands/channels");
 
 const client = new Discord.Client();
 
@@ -25,6 +29,9 @@ client.on("message", async (msg) => {
 			case "addreminder":
 				createSurveys(msg);
 				break;
+			/* 			case "testreminder":
+				createTestSurvey(msg);
+				break; */
 		}
 	}
 });

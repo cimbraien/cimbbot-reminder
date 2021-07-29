@@ -3,6 +3,17 @@ const { SurveyType, createReminder } = require("../reminder");
 //message.member.hasPermission("ADMINISTRATOR")
 
 class Channels {
+	/* 	createTestSurvey(msg) {
+		createReminder(
+			{
+				minute: "7",
+			},
+			SurveyType.DAILY,
+			msg.channel
+		);
+		msg.channel.send("Siap pak bos");
+	} */
+
 	getChannelID(msg) {
 		msg.channel.send(`Channel ID :   ${msg.channel.id}`);
 	}
